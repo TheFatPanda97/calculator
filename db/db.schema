@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS calculations;
+
+CREATE TABLE IF NOT EXISTS calculations (
+	id INTEGER PRIMARY KEY,
+  equation TEXT NOT NULL,
+	assignments TEXT
+);
