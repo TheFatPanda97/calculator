@@ -5,16 +5,16 @@
   grid-template-columns: auto auto auto auto;
   grid-template-rows: auto;
   grid-template-areas: 'left-bracket right-bracket clear clear';
-
-  .left-bracket {
-    grid-area: left-bracket;
-  }
-
+  
   .right-bracket {
     grid-area: right-bracket;
   }
 
   .clear {
     grid-area: clear;
+  }
+
+  .enter {
+    grid-area: enter;
   }
 }

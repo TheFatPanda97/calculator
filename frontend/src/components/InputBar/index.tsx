@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { EditableMathField } from 'react-mathquill';
-import { evaluate } from 'mathjs';
-import { findVariables, addMultiplicationSigns } from '../../utils/regex';
+import { findVariables } from '../../utils/regex';
 import classNames from 'classnames';
 
 import type { FC, MutableRefObject } from 'react';
@@ -14,9 +13,9 @@ interface IProps {
   variables: string[];
   setLatex: (latex: string) => void;
   setText: (text: string) => void;
-  setAnswer: (answer: string) => void;
   setVariables: (variables: string[]) => void;
   mathQullRef: MutableRefObject<MathField | null>;
+  calculateExpression: (mathField?: MathField) => void;
 }
 
 const InputBar: FC<IProps> = ({
@@ -24,10 +23,10 @@ const InputBar: FC<IProps> = ({
   text,
   variables,
   setLatex,
-  setAnswer,
   setText,
   setVariables,
   mathQullRef,
+  calculateExpression,
 }) => {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const [editabledFieldFocused, setEditabledFieldFocused] = useState(false);
@@ -55,9 +54,11 @@ const InputBar: FC<IProps> = ({
           }}
           latex={latex}
           onChange={(mathField) => {
-            setLatex(mathField.latex());
-            setText(mathField.text());
-            setVariables(findVariables(mathField.text()));
+            if (mathField) {
+              setLatex(mathField.latex());
+              setText(mathField.text());
+              setVariables(findVariables(mathField.text()));
+            }
           }}
           onBlur={() => {
             setEditabledFieldFocused(false);
@@ -65,23 +66,13 @@ const InputBar: FC<IProps> = ({
           onFocus={() => {
             setEditabledFieldFocused(true);
           }}
-        />
-        <div
-          className="go-btn"
-          onClick={() => {
-            try {
-              const currAnswer = evaluate(addMultiplicationSigns(text)) as string;
-
-              if (typeof currAnswer !== 'number') {
-                throw new Error('Invalid input');
-              }
-
-              setAnswer(currAnswer);
-            } catch (_) {
-              setAnswer('Invalid input');
-            }
+          config={{
+            handlers: {
+              enter: calculateExpression,
+            },
           }}
-        >
+        />
+        <div className="go-btn" onClick={() => calculateExpression()}>
           <p>Go</p>
         </div>
       </div>
