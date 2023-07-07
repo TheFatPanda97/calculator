@@ -1,5 +1,19 @@
 .input-bar {
   display: flex;
+  margin: 10px 0;
+  position: relative;
+
+  .placeholder {
+    position: absolute;
+    left: 15px;
+    top: 17px;
+    z-index: 999;
+    color: grey;
+
+    &--hidden {
+      display: none;
+    }
+  }
 
   .mq-editable-field {
     flex-grow: 1;

@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { EditableMathField } from 'react-mathquill';
-import {evaluate} from 'mathjs';
+import { evaluate } from 'mathjs';
 import { findVariables } from '../../utils/regex';
+import classNames from 'classnames';
 
 import type { FC, MutableRefObject } from 'react';
 import type { MathField } from 'react-mathquill';
@@ -27,9 +29,22 @@ const InputBar: FC<IProps> = ({
   setVariables,
   mathQullRef,
 }) => {
+  const [showPlaceholder, setShowPlaceholder] = useState(true);
+
   return (
     <>
       <div className="input-bar">
+        <span
+          className={classNames('placeholder', {
+            'placeholder--hidden': !showPlaceholder,
+          })}
+          onClick={() => {
+            setShowPlaceholder(false);
+            mathQullRef.current?.focus();
+          }}
+        >
+          Enter a problem:
+        </span>
         <EditableMathField
           mathquillDidMount={(mathField) => {
             mathQullRef.current = mathField;
@@ -40,6 +55,8 @@ const InputBar: FC<IProps> = ({
             setText(mathField.text());
             setVariables(findVariables(mathField.text()));
           }}
+          onBlur={() => setShowPlaceholder(text === '')}
+          onFocus={() => setShowPlaceholder(false)}
         />
         <div
           className="go-btn"
