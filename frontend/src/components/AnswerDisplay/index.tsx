@@ -8,7 +8,8 @@ interface IProps {
 const AnswerDisplay: FC<IProps> = ({ answer }) => {
   return (
     <div className="answer-display">
-      <p>Answer: {answer}</p>
+      {!answer.includes('Invalid Input') && <span>Answer:&nbsp;</span>}
+      <p>{answer}</p>
     </div>
   );
 };

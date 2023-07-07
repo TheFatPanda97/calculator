@@ -20,25 +20,30 @@ const App = () => {
   );
 
   const calculateExpression = (mathField?: MathField) => {
+    const currText = mathField ? mathField.text() : text;
+    const addMultiplicationSignsString = addMultiplicationSigns(currText);
+    const replaceVariablesString = replaceVariables(addMultiplicationSignsString, variableValues);
+
+    if (replaceVariablesString.length > 500) {
+      setAnswer('Invalid Input (Expression too long)');
+      return;
+    }
+
     try {
-      const currText = mathField ? mathField.text() : text;
-      const addMultiplicationSignsString = addMultiplicationSigns(currText);
-      const replaceVariablesString = replaceVariables(addMultiplicationSignsString, variableValues);
-      const currAnswer = evaluate(replaceVariablesString) as string;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const currAnswer = evaluate(replaceVariablesString);
 
       if (typeof currAnswer !== 'number') {
         throw new Error('Invalid input');
       }
 
-      setAnswer(currAnswer);
+      setAnswer(currAnswer.toString());
     } catch (_) {
-      let errorMsg = 'Invalid input';
-
       if (variables.length > 0) {
-        errorMsg += ' (missing variable values)';
+        setAnswer('Invalid Input (Missing variable values)');
+      } else {
+        setAnswer('Invalid Input');
       }
-
-      setAnswer(errorMsg);
     }
   };
 
