@@ -1,0 +1,30 @@
+.input-bar {
+  display: flex;
+
+  .mq-editable-field {
+    flex-grow: 1;
+    max-width: 700px;
+    border-color: transparent;
+    background-color: white;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 15px;
+  }
+
+  .go-btn {
+    max-width: 50px;
+    min-width: 50px;
+    flex-grow: 1;
+    background-color: #3fdbc1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #57ebd2;
+    }
+  }
+}
