@@ -11,6 +11,7 @@ interface IProps {
 }
 
 const OPPad: FC<IProps> = ({ mathQullRef, setLatex, setText }) => {
+  const execute = (cmd: string) => mathQullRef.current?.cmd(cmd);
   return (
     <div className="op-pad">
       <button className="left-bracket">
@@ -28,7 +29,7 @@ const OPPad: FC<IProps> = ({ mathQullRef, setLatex, setText }) => {
       >
         <p>clear</p>
       </button>
-      <button>
+      <button onClick={() => execute('7')}>
         <p>7</p>
       </button>
       <button>
@@ -37,7 +38,7 @@ const OPPad: FC<IProps> = ({ mathQullRef, setLatex, setText }) => {
       <button>
         <p>9</p>
       </button>
-      <button onClick={() => mathQullRef.current?.cmd('/')}>
+      <button onClick={() => execute('/')}>
         <p>÷</p>
       </button>
       <button>

@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { EditableMathField } from 'react-mathquill';
 import { evaluate } from 'mathjs';
-import { findVariables } from '../../utils/regex';
+import { findVariables, addMultiplicationSigns } from '../../utils/regex';
 import classNames from 'classnames';
 
 import type { FC, MutableRefObject } from 'react';
@@ -30,6 +30,11 @@ const InputBar: FC<IProps> = ({
   mathQullRef,
 }) => {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
+  const [editabledFieldFocused, setEditabledFieldFocused] = useState(false);
+
+  useEffect(() => {
+    setShowPlaceholder(text === '' && !editabledFieldFocused);
+  }, [text, editabledFieldFocused]);
 
   return (
     <>
@@ -39,7 +44,6 @@ const InputBar: FC<IProps> = ({
             'placeholder--hidden': !showPlaceholder,
           })}
           onClick={() => {
-            setShowPlaceholder(false);
             mathQullRef.current?.focus();
           }}
         >
@@ -55,14 +59,18 @@ const InputBar: FC<IProps> = ({
             setText(mathField.text());
             setVariables(findVariables(mathField.text()));
           }}
-          onBlur={() => setShowPlaceholder(text === '')}
-          onFocus={() => setShowPlaceholder(false)}
+          onBlur={() => {
+            setEditabledFieldFocused(false);
+          }}
+          onFocus={() => {
+            setEditabledFieldFocused(true);
+          }}
         />
         <div
           className="go-btn"
           onClick={() => {
             try {
-              const currAnswer = evaluate(text) as string;
+              const currAnswer = evaluate(addMultiplicationSigns(text)) as string;
 
               if (typeof currAnswer !== 'number') {
                 throw new Error('Invalid input');
