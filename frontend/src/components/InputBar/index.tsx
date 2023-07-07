@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { EditableMathField } from 'react-mathquill';
-import { findVariables } from '../../utils/regex';
+import { findVariables } from '../../utils/calculationUtils';
 import classNames from 'classnames';
 
 import type { FC, MutableRefObject } from 'react';

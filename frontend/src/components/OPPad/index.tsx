@@ -59,7 +59,6 @@ const OPPad: FC<IProps> = ({ mathQullRef, setLatex, setText, calculateExpression
             if (typeof cmd === 'string') {
               execute(cmd);
             } else {
-              console.log('hehe');
               cmd();
             }
           }}

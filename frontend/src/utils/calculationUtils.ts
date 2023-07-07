@@ -34,3 +34,27 @@ export const addMultiplicationSigns = (str: string) => {
   // The substituted value will be contained in the result variable
   return str.replace(regex, subst);
 };
+
+/**
+ *
+ * @param str string to replace variables in
+ * @param variablesValues variable value assignment
+ * @returns a string with variables replaced with their values
+ */
+export const replaceVariables = (str: string, variablesValues: Record<string, number | ''>) => {
+  const variables = findVariables(str);
+  let newStr = str;
+
+  variables.forEach((variable) => {
+    if (variablesValues[variable] !== '') {
+      const currRegex = new RegExp(variable, `gm`);
+      newStr = newStr.replace(currRegex, variablesValues[variable].toString());
+    }
+  });
+
+  return newStr;
+};
+
+export const isNumber = (str: string) => {
+  return !isNaN(parseFloat(str)) && !isNaN(Number(str));
+};

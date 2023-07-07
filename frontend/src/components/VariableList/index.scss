@@ -1,0 +1,26 @@
+.variable-list {
+  background-color: white;
+  border-radius: 5px;
+  padding: 15px;
+
+  .title {
+    margin-top: 0;
+  }
+
+  .variable-container {
+    margin-top: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+
+    .variable-display {
+      width: 15px;
+      display: inline-block;
+      margin: 0px 20px;
+    }
+    .variable-input {
+      height: 30px;
+      width: 100%;
+    }
+  }
+}
