@@ -16,29 +16,38 @@
   }
 
   .mq-editable-field {
-    flex-grow: 1;
-    max-width: 700px;
+    box-sizing: border-box;
+    width: 90%;
     border-color: transparent;
     background-color: white;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     padding: 15px;
+
+    @media (max-width: 450px) {
+      width: 100%;
+      border-radius: 5px;
+    }
   }
 
   .go-btn {
-    max-width: 50px;
-    min-width: 50px;
-    flex-grow: 1;
-    background-color: #3fdbc1;
+    min-width: 10%;
+    background-color: #57ebd2;
     display: flex;
     justify-content: center;
     align-items: center;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     cursor: pointer;
+    padding: 0 5px;
+    box-sizing: border-box;
 
     &:hover {
-      background-color: #57ebd2;
+      background-color: #3fdbc1;
+    }
+
+    @media (max-width: 450px) {
+      display: none;
     }
   }
 }

@@ -52,6 +52,7 @@ const OPPad: FC<IProps> = ({ mathQullRef, setLatex, setText, calculateExpression
           className={classNames({
             'left-bracket': value === '(',
             'right-bracket': value === ')',
+            'enter': value === '=',
           })}
           key={value}
           onClick={() => {
