@@ -17,7 +17,8 @@
 
   .mq-editable-field {
     box-sizing: border-box;
-    width: 90%;
+    width: calc(100% - 50px);
+    flex-grow: 1;
     border-color: transparent;
     background-color: white;
     border-top-left-radius: 5px;
@@ -31,7 +32,8 @@
   }
 
   .go-btn {
-    min-width: 10%;
+    min-width: 50px;
+    max-width: 50px;
     background-color: #57ebd2;
     display: flex;
     justify-content: center;
@@ -39,7 +41,6 @@
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     cursor: pointer;
-    padding: 0 5px;
     box-sizing: border-box;
 
     &:hover {
