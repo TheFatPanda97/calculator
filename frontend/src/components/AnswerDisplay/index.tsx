@@ -6,8 +6,6 @@ interface IProps {
 }
 
 const AnswerDisplay: FC<IProps> = ({ answer }) => {
-  console.log(answer);
-
   return (
     <div className="answer-display">
       <p>Answer: {answer}</p>

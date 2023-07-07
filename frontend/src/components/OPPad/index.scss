@@ -1,5 +1,20 @@
 .op-pad {
   background-color: white;
+  border-radius: 5px;
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: 80px 80px 80px 80px;
+  grid-template-rows: auto;
+  grid-template-areas: 'left-bracket right-bracket clear clear';
+
+  .left-bracket {
+    grid-area: left-bracket;
+  }
+
+  .right-bracket {
+    grid-area: right-bracket;
+  }
+
+  .clear {
+    grid-area: clear;
+  }
 }

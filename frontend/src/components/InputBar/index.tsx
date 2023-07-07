@@ -1,8 +1,9 @@
 import { EditableMathField } from 'react-mathquill';
-import * as math from 'mathjs';
+import {evaluate} from 'mathjs';
 import { findVariables } from '../../utils/regex';
 
-import type { FC } from 'react';
+import type { FC, MutableRefObject } from 'react';
+import type { MathField } from 'react-mathquill';
 import './index.scss';
 
 interface IProps {
@@ -13,6 +14,7 @@ interface IProps {
   setText: (text: string) => void;
   setAnswer: (answer: string) => void;
   setVariables: (variables: string[]) => void;
+  mathQullRef: MutableRefObject<MathField | null>;
 }
 
 const InputBar: FC<IProps> = ({
@@ -23,11 +25,15 @@ const InputBar: FC<IProps> = ({
   setAnswer,
   setText,
   setVariables,
+  mathQullRef,
 }) => {
   return (
     <>
       <div className="input-bar">
         <EditableMathField
+          mathquillDidMount={(mathField) => {
+            mathQullRef.current = mathField;
+          }}
           latex={latex}
           onChange={(mathField) => {
             setLatex(mathField.latex());
@@ -39,8 +45,7 @@ const InputBar: FC<IProps> = ({
           className="go-btn"
           onClick={() => {
             try {
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-              const currAnswer = math.evaluate(text) as string;
+              const currAnswer = evaluate(text) as string;
 
               if (typeof currAnswer !== 'number') {
                 throw new Error('Invalid input');
