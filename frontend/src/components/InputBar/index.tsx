@@ -10,7 +10,6 @@ import './index.scss';
 interface IProps {
   latex: string;
   text: string;
-  variables: string[];
   setLatex: (latex: string) => void;
   setText: (text: string) => void;
   setVariables: (variables: string[]) => void;
@@ -21,7 +20,6 @@ interface IProps {
 const InputBar: FC<IProps> = ({
   latex,
   text,
-  variables,
   setLatex,
   setText,
   setVariables,
@@ -36,52 +34,45 @@ const InputBar: FC<IProps> = ({
   }, [text, editabledFieldFocused]);
 
   return (
-    <>
-      <div className="input-bar">
-        <span
-          className={classNames('placeholder', {
-            'placeholder--hidden': !showPlaceholder,
-          })}
-          onClick={() => {
-            mathQullRef.current?.focus();
-          }}
-        >
-          Enter a problem:
-        </span>
-        <EditableMathField
-          mathquillDidMount={(mathField) => {
-            mathQullRef.current = mathField;
-          }}
-          latex={latex}
-          onChange={(mathField) => {
-            if (mathField) {
-              setLatex(mathField.latex());
-              setText(mathField.text());
-              setVariables(findVariables(mathField.text()));
-            }
-          }}
-          onBlur={() => {
-            setEditabledFieldFocused(false);
-          }}
-          onFocus={() => {
-            setEditabledFieldFocused(true);
-          }}
-          config={{
-            handlers: {
-              enter: calculateExpression,
-            },
-          }}
-        />
-        <div className="go-btn" onClick={() => calculateExpression()}>
-          <p>Go</p>
-        </div>
+    <div className="input-bar">
+      <span
+        className={classNames('placeholder', {
+          'placeholder--hidden': !showPlaceholder,
+        })}
+        onClick={() => {
+          mathQullRef.current?.focus();
+        }}
+      >
+        Enter a problem:
+      </span>
+      <EditableMathField
+        mathquillDidMount={(mathField) => {
+          mathQullRef.current = mathField;
+        }}
+        latex={latex}
+        onChange={(mathField) => {
+          if (mathField) {
+            setLatex(mathField.latex());
+            setText(mathField.text());
+            setVariables(findVariables(mathField.text()));
+          }
+        }}
+        onBlur={() => {
+          setEditabledFieldFocused(false);
+        }}
+        onFocus={() => {
+          setEditabledFieldFocused(true);
+        }}
+        config={{
+          handlers: {
+            enter: calculateExpression,
+          },
+        }}
+      />
+      <div className="go-btn" onClick={() => calculateExpression()}>
+        <p>Go</p>
       </div>
-      <div>
-        <p>Latex: {latex}</p>
-        <p>Text: {text}</p>
-        <p>Variables: {variables.join(', ')}</p>
-      </div>
-    </>
+    </div>
   );
 };
 

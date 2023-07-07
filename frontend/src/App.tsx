@@ -36,7 +36,6 @@ const App = () => {
         <InputBar
           latex={latex}
           text={text}
-          variables={variables}
           setLatex={setLatex}
           setText={setText}
           setVariables={setVariables}
