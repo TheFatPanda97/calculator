@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import InputBar from './components/InputBar';
+import AnswerDisplay from './components/AnswerDisplay';
 import OPPad from './components/OPPad';
 
 const App = () => {
@@ -11,10 +12,10 @@ const App = () => {
   return (
     <div className="app">
       <div className="calculator-container">
+        <AnswerDisplay answer={answer} />
         <InputBar
           latex={latex}
           text={text}
-          answer={answer}
           variables={variables}
           setLatex={setLatex}
           setAnswer={setAnswer}

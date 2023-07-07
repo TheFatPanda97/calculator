@@ -8,7 +8,6 @@ import './index.scss';
 interface IProps {
   latex: string;
   text: string;
-  answer: string;
   variables: string[];
   setLatex: (latex: string) => void;
   setText: (text: string) => void;
@@ -19,7 +18,6 @@ interface IProps {
 const InputBar: FC<IProps> = ({
   latex,
   text,
-  answer,
   variables,
   setLatex,
   setAnswer,
@@ -43,8 +41,13 @@ const InputBar: FC<IProps> = ({
             try {
               // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
               const currAnswer = math.evaluate(text) as string;
+
+              if (typeof currAnswer !== 'number') {
+                throw new Error('Invalid input');
+              }
+
               setAnswer(currAnswer);
-            } catch (error) {
+            } catch (_) {
               setAnswer('Invalid input');
             }
           }}
@@ -55,7 +58,6 @@ const InputBar: FC<IProps> = ({
       <div>
         <p>Latex: {latex}</p>
         <p>Text: {text}</p>
-        <p>Answer: {answer}</p>
         <p>Variables: {variables.join(', ')}</p>
       </div>
     </>
