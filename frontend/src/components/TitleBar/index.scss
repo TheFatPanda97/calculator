@@ -15,4 +15,10 @@
   span {
     color: white;
   }
+
+  @media (max-width: 450px) {
+    position: static;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
 }

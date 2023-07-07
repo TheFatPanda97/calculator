@@ -35,7 +35,7 @@ const App = () => {
       let errorMsg = 'Invalid input';
 
       if (variables.length > 0) {
-        errorMsg += ' (are you missing some value assignments?)';
+        errorMsg += ' (missing variable values)';
       }
 
       setAnswer(errorMsg);
