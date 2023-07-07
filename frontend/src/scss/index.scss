@@ -13,10 +13,14 @@ body {
   justify-content: center;
 
   .calculator-container {
-    margin-top: calc(100vh / 4);
+    margin-top: calc(100vh / 5);
     max-width: 100%;
     width: 700px;
     padding: 20px;
     box-sizing: border-box;
+
+    @media (max-width: 450px) {
+      margin-top: 0;
+    }
   }
 }

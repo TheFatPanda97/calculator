@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { evaluate } from 'mathjs';
 import { addMultiplicationSigns, replaceVariables } from './utils/calculationUtils';
+import TitleBar from './components/TitleBar';
 import InputBar from './components/InputBar';
 import AnswerDisplay from './components/AnswerDisplay';
 import OPPad from './components/OPPad';
@@ -44,6 +45,7 @@ const App = () => {
   return (
     <div className="app">
       <div className="calculator-container">
+        <TitleBar />
         <AnswerDisplay answer={answer} />
         <InputBar
           latex={latex}

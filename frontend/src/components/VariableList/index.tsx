@@ -17,7 +17,7 @@ const VariableList: FC<IProps> = ({ variables, variableValues, setVariableValues
   return (
     <div className="variable-list">
       <p className="title">Variables:</p>
-      <hr />
+      {variables.length !== 0 && <hr />}
       {variables.map((variable, index) => (
         <div key={index} className="variable-container">
           <span className="variable-display">{variable}</span>
