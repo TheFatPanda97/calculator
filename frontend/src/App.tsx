@@ -8,6 +8,7 @@ import OPPad from './components/OPPad';
 import VariableList from './components/VariableList';
 
 import type { MathField } from 'react-mathquill';
+import type { IHistory } from './components/AnswerDisplay';
 
 const App = () => {
   const [latex, setLatex] = useState('');
@@ -18,11 +19,13 @@ const App = () => {
   const [variableValues, setVariableValues] = useState<Record<string, number | ''>>(
     variables.reduce((acc, curr) => ({ ...acc, [curr]: 1 }), {}),
   );
+  const [history, setHistory] = useState<IHistory[]>([]);
 
   const calculateExpression = (mathField?: MathField) => {
     const currText = mathField ? mathField.text() : text;
     const addMultiplicationSignsString = addMultiplicationSigns(currText);
     const replaceVariablesString = replaceVariables(addMultiplicationSignsString, variableValues);
+    let currAnswer;
 
     if (replaceVariablesString.length > 500) {
       setAnswer('Invalid Input (Expression too long)');
@@ -31,27 +34,45 @@ const App = () => {
 
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const currAnswer = evaluate(replaceVariablesString);
+      currAnswer = evaluate(replaceVariablesString);
 
       if (typeof currAnswer !== 'number') {
         throw new Error('Invalid input');
       }
 
-      setAnswer(currAnswer.toString());
+      currAnswer = currAnswer.toString();
+      setAnswer(currAnswer);
     } catch (_) {
       if (variables.length > 0) {
+        currAnswer = 'Invalid Input (Missing variable values)';
         setAnswer('Invalid Input (Missing variable values)');
       } else {
+        currAnswer = 'Invalid Input';
         setAnswer('Invalid Input');
       }
     }
+
+    setHistory([
+      {
+        equationLatex: latex,
+        answer: currAnswer,
+        variables: variableValues,
+      },
+      ...history,
+    ]);
   };
 
   return (
     <div className="app">
       <div className="calculator-container">
         <TitleBar />
-        <AnswerDisplay answer={answer} />
+        <AnswerDisplay
+          answer={answer}
+          history={history}
+          setLatex={setLatex}
+          setVariableValues={setVariableValues}
+          setAnswer={setAnswer}
+        />
         <InputBar
           latex={latex}
           text={text}

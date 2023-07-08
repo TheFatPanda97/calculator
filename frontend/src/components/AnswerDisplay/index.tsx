@@ -8,10 +8,31 @@ import './index.scss';
 
 interface IProps {
   answer: string;
+  history: IHistory[];
+  setLatex: (latex: string) => void;
+  setVariableValues: (variableValues: Record<string, number | ''>) => void;
+  setAnswer: (answer: string) => void;
 }
 
-const AnswerDisplay: FC<IProps> = ({ answer }) => {
+export interface IHistory {
+  equationLatex: string;
+  answer: string;
+  variables: Record<string, number | ''>;
+}
+
+const AnswerDisplay: FC<IProps> = ({ answer, history, setLatex, setVariableValues, setAnswer }) => {
   const [showHistory, setShowHistory] = useState(false);
+
+  const onEquationClick = (
+    equationLatex: string,
+    variables: Record<string, number | ''>,
+    answer: string,
+  ) => {
+    setLatex(equationLatex);
+    setVariableValues(variables);
+    setAnswer(answer);
+    setShowHistory(false);
+  };
 
   return (
     <div
@@ -31,13 +52,23 @@ const AnswerDisplay: FC<IProps> = ({ answer }) => {
       {showHistory && (
         <div className="history-container">
           <hr />
-          <div className="past-equation-container">
-            <StaticMathField className="past-equation">
-              {'\\frac{1}{\\sqrt{2}}\\cdot 2'}
-            </StaticMathField>
-            =<div className="past-answer">56456465456456</div>
-            <div className="past-variables">x = 3, y = 10</div>
-          </div>
+          {history.map(({ equationLatex, answer, variables }, index) => (
+            <div
+              key={`${equationLatex}-${index}`}
+              className="past-equation-container"
+              onClick={() => onEquationClick(equationLatex, variables, answer)}
+            >
+              <StaticMathField className="past-equation">{equationLatex}</StaticMathField>=
+              <div className="past-answer">{answer}</div>
+              {Object.entries(variables).length > 0 && (
+                <div className="past-variables">
+                  {Object.entries(variables)
+                    .map(([variable, value]) => `${variable} = ${value}`)
+                    .join(', ')}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       )}
     </div>

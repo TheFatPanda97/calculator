@@ -63,11 +63,6 @@ const InputBar: FC<IProps> = ({
         onFocus={() => {
           setEditabledFieldFocused(true);
         }}
-        config={{
-          handlers: {
-            enter: calculateExpression,
-          },
-        }}
       />
       <div className="go-btn" onClick={() => calculateExpression()}>
         <p>Go</p>
