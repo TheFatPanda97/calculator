@@ -39,6 +39,6 @@ CURR_ENV="development"
 
 further configuration can be found in `backend/.env.example`
 
-5. run the frontend and backend: `./run.sh`
+5. run the frontend and backend server script in the root of the repo: `./run.sh`
 6. go to http://localhost:5173 to see the application
 7. that's it! have fun playing with the calculator :D
