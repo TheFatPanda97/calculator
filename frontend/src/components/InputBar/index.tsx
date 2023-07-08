@@ -10,9 +10,10 @@ import './index.scss';
 interface IProps {
   latex: string;
   text: string;
+  variableValues: Record<string, number | ''>;
   setLatex: (latex: string) => void;
   setText: (text: string) => void;
-  setVariables: (variables: string[]) => void;
+  setVariableValues: (variableValues: Record<string, number | ''>) => void;
   mathQullRef: MutableRefObject<MathField | null>;
   calculateExpression: (mathField?: MathField) => void;
 }
@@ -20,9 +21,10 @@ interface IProps {
 const InputBar: FC<IProps> = ({
   latex,
   text,
+  variableValues,
   setLatex,
   setText,
-  setVariables,
+  setVariableValues,
   mathQullRef,
   calculateExpression,
 }) => {
@@ -52,9 +54,20 @@ const InputBar: FC<IProps> = ({
         latex={latex}
         onChange={(mathField) => {
           if (mathField) {
+            const variables = findVariables(mathField.text());
+
+            let newVariableValues = {
+              ...variables.reduce((acc, curr) => ({ ...acc, [curr]: 1 }), {}),
+              ...variableValues,
+            };
+
+            newVariableValues = Object.fromEntries(
+              Object.entries(newVariableValues).filter(([key]) => variables.includes(key)),
+            );
+
             setLatex(mathField.latex());
             setText(mathField.text());
-            setVariables(findVariables(mathField.text()));
+            setVariableValues(newVariableValues);
           }
         }}
         onBlur={() => {

@@ -21,13 +21,11 @@ const App = () => {
   const [latex, setLatex] = useState('');
   const [text, setText] = useState('');
   const [answer, setAnswer] = useState('');
-  const [variables, setVariables] = useState<string[]>([]);
   const mathQullRef = useRef<MathField | null>(null);
-  const [variableValues, setVariableValues] = useState<Record<string, number | ''>>(
-    variables.reduce((acc, curr) => ({ ...acc, [curr]: 1 }), {}),
-  );
+  const [variableValues, setVariableValues] = useState<Record<string, number | ''>>({});
   const [history, setHistory] = useState<IHistory[]>([]);
 
+  // retrieve history from backend
   useEffect(() => {
     (async () => {
       try {
@@ -41,6 +39,9 @@ const App = () => {
             variables: assignments,
           })),
         );
+        setAnswer(equtaions[0].answer);
+        setVariableValues(equtaions[0].assignments);
+        setLatex(equtaions[0].latex);
       } catch (error) {
         console.log(error);
       }
@@ -64,9 +65,9 @@ const App = () => {
       currAnswer = currAnswer.toString();
       setAnswer(currAnswer);
     } catch (_) {
-      if (variables.length > 0) {
-        currAnswer = 'Invalid Input (Missing variable values)';
-        setAnswer('Invalid Input (Missing variable values)');
+      if (Object.keys(variableValues).length > 0) {
+        currAnswer = 'Invalid Input (Missing Variable Values?)';
+        setAnswer('Invalid Input (Missing Variable Values?)');
       } else {
         currAnswer = 'Invalid Input';
         setAnswer('Invalid Input');
@@ -97,9 +98,10 @@ const App = () => {
         <InputBar
           latex={latex}
           text={text}
+          variableValues={variableValues}
           setLatex={setLatex}
           setText={setText}
-          setVariables={setVariables}
+          setVariableValues={setVariableValues}
           mathQullRef={mathQullRef}
           calculateExpression={calculateExpression}
         />
@@ -109,11 +111,7 @@ const App = () => {
           setText={setText}
           calculateExpression={calculateExpression}
         />
-        <VariableList
-          variables={variables}
-          variableValues={variableValues}
-          setVariableValues={setVariableValues}
-        />
+        <VariableList variableValues={variableValues} setVariableValues={setVariableValues} />
       </div>
     </div>
   );
