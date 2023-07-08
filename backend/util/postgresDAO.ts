@@ -1,5 +1,4 @@
 import { Client } from 'pg';
-import type { Response } from 'express';
 
 const db = new Client({
   host: process.env.DB_HOST,
