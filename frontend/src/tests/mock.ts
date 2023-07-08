@@ -2,10 +2,10 @@
 import { rest } from 'msw';
 
 export const handlers = [
-  rest.get('/equations', (req, res, ctx) => {
+  rest.get('/equations', (_, res, ctx) => {
     return res(ctx.json([]));
   }),
-  rest.post('/equations', (req, res, ctx) => {
+  rest.post('/equations', (_, res) => {
     return res();
   }),
 ];
