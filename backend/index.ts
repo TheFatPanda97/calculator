@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
+import cors from 'cors';
 import {
   insertEquation as insertEquationLite,
   getEquations as getEquationsLite,
@@ -15,6 +16,7 @@ import type { Express, Request, Response } from 'express';
 const app: Express = express();
 const port = 3000;
 
+app.use(cors());
 app.use(express.json());
 
 app.get('/', (_, res: Response) => {

@@ -1,5 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { evaluate } from 'mathjs';
+import axios from 'axios';
 import { addMultiplicationSigns, replaceVariables } from './utils/calculationUtils';
 import TitleBar from './components/TitleBar';
 import InputBar from './components/InputBar';
@@ -9,6 +10,12 @@ import VariableList from './components/VariableList';
 
 import type { MathField } from 'react-mathquill';
 import type { IHistory } from './components/AnswerDisplay';
+
+interface IEquation {
+  latex: string;
+  answer: string;
+  assignments: Record<string, number | ''>;
+}
 
 const App = () => {
   const [latex, setLatex] = useState('');
@@ -20,6 +27,25 @@ const App = () => {
     variables.reduce((acc, curr) => ({ ...acc, [curr]: 1 }), {}),
   );
   const [history, setHistory] = useState<IHistory[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get<IEquation[]>(`${import.meta.env.VITE_API_BASE_URL}/equations`);
+        const equtaions = res.data;
+
+        setHistory(
+          equtaions.map(({ latex, answer, assignments }) => ({
+            equationLatex: latex,
+            answer,
+            variables: assignments,
+          })),
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   const calculateExpression = (mathField?: MathField) => {
     const currText = mathField ? mathField.text() : text;
