@@ -23,7 +23,7 @@
 ### Prerequisites
 
 - operating system: mac/linux/wsl
-- node.js 14
+- node.js 18
 
 ### Steps:
 
