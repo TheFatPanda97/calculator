@@ -11,8 +11,17 @@ interface IProps {
 
 const VariableList: FC<IProps> = ({ variables, variableValues, setVariableValues }) => {
   useEffect(() => {
-    setVariableValues(variables.reduce((acc, curr) => ({ ...acc, [curr]: 1 }), {}));
-  }, [variables, setVariableValues]);
+    let newVariableValues = {
+      ...variables.reduce((acc, curr) => ({ ...acc, [curr]: 1 }), {}),
+      ...variableValues,
+    };
+
+    newVariableValues = Object.fromEntries(
+      Object.entries(newVariableValues).filter(([key]) => variables.includes(key)),
+    );
+
+    setVariableValues(newVariableValues);
+  }, [variables]);
 
   return (
     <div className="variable-list">
