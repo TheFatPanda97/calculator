@@ -1,7 +1,7 @@
 import * as sqlite3 from 'sqlite3';
 
 const core = sqlite3.verbose();
-const db = new core.Database('./db/calculator.db');
+export const db = new core.Database('./db/calculator.db');
 
 import type { Response } from 'express';
 

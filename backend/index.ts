@@ -4,12 +4,12 @@ import cors from 'cors';
 import {
   insertEquation as insertEquationLite,
   getEquations as getEquationsLite,
-} from './util/sqliteDAO';
+} from './utils/sqliteDAO';
 import {
   insertEquation as insertEquationPg,
   getEquations as getEquationsPg,
   connectDB,
-} from './util/postgresDAO';
+} from './utils/postgresDAO';
 
 import type { Express, Request, Response } from 'express';
 
@@ -85,3 +85,5 @@ if (process.env.DB_TYPE === 'postgres') {
     console.log(`⚡️[Calculator API] is running on port ${port}`);
   });
 }
+
+export default app;
