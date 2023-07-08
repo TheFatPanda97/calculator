@@ -45,8 +45,6 @@ export const replaceVariables = (str: string, variablesValues: Record<string, nu
   const variables = findVariables(str);
   let newStr = str;
 
-  console.log(variablesValues);
-
   variables.forEach((variable) => {
     if (variablesValues[variable] !== '') {
       const currRegex = new RegExp(variable, `gm`);
