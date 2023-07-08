@@ -16,9 +16,16 @@ import type { Express, Request, Response } from 'express';
 const app: Express = express();
 const port = 3000;
 
+// Set the Referrer Policy header
+app.use((req, res, next) => {
+  res.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  next();
+});
+
 app.use(
   cors({
     origin: ['https://calculator.shawnhu.com', /^http:\/\/localhost.*/],
+    credentials: true,
   }),
 );
 app.use(express.json());
