@@ -16,7 +16,11 @@ import type { Express, Request, Response } from 'express';
 const app: Express = express();
 const port = 3000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ['https://calculator.shawnhu.com', /^http:\/\/localhost.*/],
+  }),
+);
 app.use(express.json());
 
 app.get('/', (_, res: Response) => {
