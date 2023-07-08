@@ -28,9 +28,10 @@
 ### Steps:
 
 1. clone the repo: `git clone https://github.com/TheFatPanda97/calculator.git`
-2. run the setup script: `./setup.bash`
-3. run the frontend and backend: `./run.sh`
-4. go into the backend directory: `cd backend` and create a `.env` file with the following content:
+2. go into the repo: `cd calculator`
+3. run the setup script: `./setup.bash`
+4. run the frontend and backend: `./run.sh`
+5. go into the backend directory: `cd backend` and create a `.env` file with the following content:
 
 ```bash
 DB_TYPE="sqlite3"
