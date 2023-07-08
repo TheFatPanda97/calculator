@@ -8,7 +8,7 @@
 
 - formats math in a human-readable way
 - supports variable assignment
-- stores history of equations
+- stores history of equations (click on the clock icon to see history, each equation is clickable!)
 - latex equation insertion
 
 # Tech Stack
