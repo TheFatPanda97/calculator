@@ -15,7 +15,7 @@ interface IProps {
   setText: (text: string) => void;
   setVariableValues: (variableValues: Record<string, number | ''>) => void;
   mathQullRef: MutableRefObject<MathField | null>;
-  calculateExpression: (mathField?: MathField) => void;
+  calculateExpression: (mathField?: MathField) => Promise<void>;
 }
 
 const InputBar: FC<IProps> = ({
@@ -77,7 +77,12 @@ const InputBar: FC<IProps> = ({
           setEditabledFieldFocused(true);
         }}
       />
-      <div className="go-btn" onClick={() => calculateExpression()}>
+      <div
+        className="go-btn"
+        onClick={() => {
+          calculateExpression();
+        }}
+      >
         <p>Go</p>
       </div>
     </div>

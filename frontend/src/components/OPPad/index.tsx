@@ -10,7 +10,7 @@ interface IProps {
   mathQullRef: MutableRefObject<MathField | null>;
   setLatex: (latex: string) => void;
   setText: (text: string) => void;
-  calculateExpression: (mathField?: MathField) => void;
+  calculateExpression: (mathField?: MathField) => Promise<void>;
 }
 
 const OPPad: FC<IProps> = ({ mathQullRef, setLatex, setText, calculateExpression }) => {
@@ -52,7 +52,7 @@ const OPPad: FC<IProps> = ({ mathQullRef, setLatex, setText, calculateExpression
           className={classNames({
             'left-bracket': value === '(',
             'right-bracket': value === ')',
-            'enter': value === '=',
+            enter: value === '=',
           })}
           key={value}
           onClick={() => {

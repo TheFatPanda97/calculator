@@ -48,7 +48,7 @@ const App = () => {
     })();
   }, []);
 
-  const calculateExpression = (mathField?: MathField) => {
+  const calculateExpression = async (mathField?: MathField) => {
     const currText = mathField ? mathField.text() : text;
     const addMultiplicationSignsString = addMultiplicationSigns(currText);
     const replaceVariablesString = replaceVariables(addMultiplicationSignsString, variableValues);
@@ -72,6 +72,16 @@ const App = () => {
         currAnswer = 'Invalid Input';
         setAnswer('Invalid Input');
       }
+    }
+
+    try {
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/equations`, {
+        latex,
+        answer: currAnswer,
+        assignments: variableValues,
+      });
+    } catch (error) {
+      console.log(error);
     }
 
     setHistory([
