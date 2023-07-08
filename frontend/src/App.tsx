@@ -27,11 +27,6 @@ const App = () => {
     const replaceVariablesString = replaceVariables(addMultiplicationSignsString, variableValues);
     let currAnswer;
 
-    if (replaceVariablesString.length > 500) {
-      setAnswer('Invalid Input (Expression too long)');
-      return;
-    }
-
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       currAnswer = evaluate(replaceVariablesString);

@@ -1,3 +1,3 @@
 cd backend && npm install
-cd ../frontend && npm install
-cd ../db && sqlite3 calculator.db < db.schema
+cd db && sqlite3 calculator.db < db.schema
+cd ../../frontend && npm install
