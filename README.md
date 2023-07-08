@@ -7,7 +7,7 @@
 # Features
 
 - formats math in a human-readable way
-- supports variable assignment
+- supports variable assignment (simply type the letter you want as a variable)
 - stores history of equations (click on the clock icon to see history, each equation is clickable!)
 - latex equation insertion
 
