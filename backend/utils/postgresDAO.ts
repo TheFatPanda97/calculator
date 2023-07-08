@@ -5,7 +5,7 @@ const db = new Client({
   database: process.env.DB_NAME,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWD,
-  ssl: process.env.NODE_ENV === 'development',
+  ssl: process.env.CURR_ENV === 'development',
 });
 
 export const connectDB = async () => {
