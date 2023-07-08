@@ -39,6 +39,11 @@ const App = () => {
             variables: assignments,
           })),
         );
+
+        if (equtaions.length === 0) {
+          return;
+        }
+
         setAnswer(equtaions[0].answer);
         setVariableValues(equtaions[0].assignments);
         setLatex(equtaions[0].latex);

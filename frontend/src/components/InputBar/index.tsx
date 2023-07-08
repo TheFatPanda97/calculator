@@ -48,6 +48,7 @@ const InputBar: FC<IProps> = ({
         Enter a problem:
       </span>
       <EditableMathField
+        data-testid="input-bar"
         mathquillDidMount={(mathField) => {
           mathQullRef.current = mathField;
         }}
