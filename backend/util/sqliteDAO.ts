@@ -16,6 +16,7 @@ export const insertEquation = (
     [latex, answer, JSON.stringify(assignments)],
     (err) => {
       if (err) {
+        console.error(err);
         res.sendStatus(500);
       } else {
         res.send('Equation Added');
@@ -34,6 +35,7 @@ export const getEquations = (res: Response) => {
     `SELECT latex, answer, assignments FROM calculations ORDER BY created_at DESC`,
     (err, rows: IROW[]) => {
       if (err) {
+        console.error(err);
         res.sendStatus(500);
       } else {
         const equations = rows.map((row) => ({
