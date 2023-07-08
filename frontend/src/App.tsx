@@ -43,7 +43,7 @@ const App = () => {
         setVariableValues(equtaions[0].assignments);
         setLatex(equtaions[0].latex);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     })();
   }, []);
@@ -81,7 +81,7 @@ const App = () => {
         assignments: variableValues,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
 
     setHistory([
