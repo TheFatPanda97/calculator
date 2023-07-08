@@ -13,7 +13,7 @@
 
 # Tech Stack
 
-- frontend: React
+- frontend: React.js
 - backend: Express.js
 - database: sqlite3 (postgresSQL on production)
 - host: Render
