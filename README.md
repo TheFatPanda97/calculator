@@ -1,3 +1,5 @@
+<img width="50px" src="https://github.com/TheFatPanda97/calculator/assets/36747253/4a33b179-44de-40a2-b250-2dcd750b445b"/>
+
 # Pretty Calculator
 
 ## Check it out at [here!](https://calculator.shawnhu.com/)
@@ -24,6 +26,7 @@
 
 - operating system: mac/linux/wsl
 - node.js 18
+- sqlite3
 
 ### Steps:
 
