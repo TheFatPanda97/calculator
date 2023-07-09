@@ -15,8 +15,8 @@ const VariableList: FC<IProps> = ({ variableValues, setVariableValues }) => (
         <span className="variable-display">{variable}</span>
         <input
           className="variable-input"
-          type="text"
-          value={val || ''}
+          type="number"
+          value={val}
           onChange={(e) =>
             setVariableValues({
               ...variableValues,
